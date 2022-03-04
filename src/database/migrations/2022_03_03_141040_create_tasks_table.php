@@ -14,7 +14,7 @@ class CreateTasksTable extends Migration
     public function up()
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->id()->comment('タスクID');
+            $table->bigIncrements('id')->comment('タスクID');
             $table->string('title', 50)->comment('タイトル');
             $table->unsignedBigInteger('status_id')->comment('ステータスID');
             $table->unsignedBigInteger('pic_user_id')->nullable()->comment('担当者ID');
