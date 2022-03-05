@@ -11,12 +11,12 @@ use App\Models\User;
 
 class UsersTableTest extends TestCase
 {
-    use DatabaseTransactions;
     use RefreshDatabase;
 
     public function setup(): void
     {
         parent::setUp();
+        $this->artisan('migrate:fresh');
         $this->seed('TestDataSeeder');
     }
 
