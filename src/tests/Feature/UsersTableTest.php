@@ -12,32 +12,27 @@ use App\Models\User;
 class UsersTableTest extends TestCase
 {
     use DatabaseTransactions;
+    use RefreshDatabase;
 
-    public function setup(): void {
+    public function setup(): void
+    {
         parent::setUp();
-        $this->seed('UsersTableSeeder');
+        $this->seed('TestDataSeeder');
     }
 
     /**
-     * A basic feature test example.
+     * 中間テーブルを経由してUserが参加しているTeamを取得できることを確認
      *
      * @return void
      */
-    public function testSeeding()
+    public function testBelongToTeamsTableHasUser()
     {
-        $this->assertDatabaseHas('users', [
-            'name' => 'test',
-        ]);
+        $expectedValue = 1;
+        $assertValue = null;
+        foreach (User::find(1)->teams as $team) {
+            $assertValue = $team->id;
+        }
 
-        $str = 'test team!';
-        Team::create([
-            'team_name' => $str,
-            'admin_user_id' => User::where('name', '=', 'test')->first()->id
-        ]);
-
-
-        $this->assertDatabaseHas('teams', [
-            'team_name' => $str,
-        ]);
+        $this->assertEquals($expectedValue, $assertValue);
     }
 }
