@@ -13,4 +13,16 @@ class Team extends Model
     {
         return $this->belongsToMany('App\Models\User', 'belong_to_teams', 'team_id', 'user_id');
     }
+
+    // define relationships with statuses table
+    public function statuses()
+    {
+        return $this->hasMany('App\Models\Status', 'team_id', 'id');
+    }
+
+    // define relationships with tasks table
+    public function tasks()
+    {
+        return $this->hasMany('App\Models\Task', 'team_id', 'id');
+    }
 }

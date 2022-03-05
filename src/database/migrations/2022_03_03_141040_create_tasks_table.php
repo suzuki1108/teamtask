@@ -23,6 +23,7 @@ class CreateTasksTable extends Migration
             $table->text('detail')->nullable()->comment('タスク詳細');
             $table->unsignedBigInteger('team_id')->nullable()->comment('チームID');
             $table->unsignedBigInteger('create_user_id')->comment('作成者ID');
+            $table->integer('sort')->length(3)->comment('ソート順');
             $table->timestamps();
 
             // setting foreign key
