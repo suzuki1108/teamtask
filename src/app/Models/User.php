@@ -11,6 +11,12 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    // define relationships with teams table
+    public function teams()
+    {
+        return $this->belongsToMany('App\Models\Team', 'belong_to_teams', 'user_id', 'team_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
