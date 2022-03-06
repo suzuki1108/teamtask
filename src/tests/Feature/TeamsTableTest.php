@@ -29,7 +29,7 @@ class TeamsTableTest extends TestCase
     public function testBelongToUsersTableHasUser()
     {
         $user_names = [];
-        foreach (Team::find(1)->users as $user) {
+        foreach (Team::with('users')->find(1)->users as $user) {
             $user_names[] = $user->name;
         }
 

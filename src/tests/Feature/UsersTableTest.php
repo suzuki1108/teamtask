@@ -2,11 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Team;
 use App\Models\User;
 
 class UsersTableTest extends TestCase
@@ -29,7 +26,7 @@ class UsersTableTest extends TestCase
     {
         $expectedValue = 1;
         $assertValue = null;
-        foreach (User::find(1)->teams as $team) {
+        foreach (User::with('teams')->find(1)->teams as $team) {
             $assertValue = $team->id;
         }
 

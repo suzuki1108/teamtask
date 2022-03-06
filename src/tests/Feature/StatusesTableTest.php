@@ -2,21 +2,28 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Status;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StatusesTableTest extends TestCase
 {
+    use RefreshDatabase;
+
+    public function setup(): void
+    {
+        parent::setUp();
+        $this->artisan('migrate:fresh');
+        $this->seed('TestDataSeeder');
+    }
+
     /**
-     * A basic feature test example.
+     * チームが取得できること
      *
      * @return void
      */
-    public function testExample()
+    public function testGetTeam()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this->assertEquals(Status::find(1)->team->team_name, 'test_team');
     }
 }
